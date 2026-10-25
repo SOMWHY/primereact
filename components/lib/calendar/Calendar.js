@@ -62,6 +62,7 @@ export const Calendar = React.memo(
         const viewChangedWithKeyDown = React.useRef(false);
         const onChangeRef = React.useRef(null);
         const isClearClicked = React.useRef(false);
+        const updateInputfieldRef = React.useRef(null);
 
         const [currentView, setCurrentView] = React.useState('date');
         const [currentMonth, setCurrentMonth] = React.useState(null);
@@ -82,7 +83,7 @@ export const Calendar = React.memo(
                         if (!isOverlayClicked.current && !isNavIconClicked(event.target)) {
                             hide('outside');
                         }
-                    } else if (context.hideOverlaysOnDocumentScrolling) {
+                    } else if ((context && context.hideOverlaysOnDocumentScrolling) || PrimeReact.hideOverlaysOnDocumentScrolling) {
                         hide();
                     } else if (!DomHandler.isDocument(event.target)) {
                         alignOverlay();
@@ -97,6 +98,12 @@ export const Calendar = React.memo(
 
         const getDateFormat = () => {
             return props.dateFormat || localeOption('dateFormat', props.locale);
+        };
+
+        const onInputClick = () => {
+            if (!visible && props.showOnFocus) {
+                show();
+            }
         };
 
         const onInputFocus = (event) => {
@@ -161,6 +168,8 @@ export const Calendar = React.memo(
         };
 
         const updateValueOnInput = (event, rawValue, invalidCallback) => {
+            props.onInput && props.onInput(event);
+
             try {
                 const value = parseValueFromString(props.timeOnly ? rawValue.replace('_', '') : rawValue);
 
@@ -205,7 +214,7 @@ export const Calendar = React.memo(
             let isValid = true;
 
             if (isSingleSelection()) {
-                if (!(isSelectable(value.getDate(), value.getMonth(), value.getFullYear(), false) && isSelectableTime(value))) {
+                if (!(isSelectable(value.getDate(), value.getMonth(), value.getFullYear(), false) && (!props.showTime || isSelectableTime(value)))) {
                     isValid = false;
                 }
             } else if (value.every((v) => isSelectable(v.getDate(), v.getMonth(), v.getFullYear(), false) && isSelectableTime(v))) {
@@ -395,11 +404,11 @@ export const Calendar = React.memo(
 
                     newViewDate.setMonth(11);
                     newViewDate.setFullYear(newYear);
-                    props.onMonthChange && props.onMonthChange({ month: 11, year: newYear });
+                    props.onMonthChange && props.onMonthChange({ month: 12, year: newYear });
                     setCurrentMonth(11);
                 } else {
                     newViewDate.setMonth(newViewDate.getMonth() - 1);
-                    props.onMonthChange && props.onMonthChange({ month: currentMonth - 1, year: currentYear });
+                    props.onMonthChange && props.onMonthChange({ month: currentMonth, year: currentYear });
                     setCurrentMonth((prevState) => prevState - 1);
                 }
             } else if (currentView === 'month') {
@@ -444,11 +453,11 @@ export const Calendar = React.memo(
 
                     newViewDate.setMonth(0);
                     newViewDate.setFullYear(newYear);
-                    props.onMonthChange && props.onMonthChange({ month: 0, year: newYear });
+                    props.onMonthChange && props.onMonthChange({ month: 1, year: newYear });
                     setCurrentMonth(0);
                 } else {
                     newViewDate.setMonth(newViewDate.getMonth() + 1);
-                    props.onMonthChange && props.onMonthChange({ month: currentMonth + 1, year: currentYear });
+                    props.onMonthChange && props.onMonthChange({ month: currentMonth + 2, year: currentYear });
                     setCurrentMonth((prevState) => prevState + 1);
                 }
             } else if (currentView === 'month') {
@@ -1727,7 +1736,9 @@ export const Calendar = React.memo(
                 setTimeout(() => {
                     hide('dateselect');
 
-                    reFocusInputField();
+                    if (props.selectionMode !== 'single') {
+                        reFocusInputField();
+                    }
                 }, 100);
 
                 if (touchUIMask.current) {
@@ -1817,8 +1828,6 @@ export const Calendar = React.memo(
                     value: date
                 });
             }
-
-            updateInputfield(selectedValues);
         };
 
         const decrementDecade = () => {
@@ -2363,11 +2372,13 @@ export const Calendar = React.memo(
                     if (props.minDate.getMinutes() > value.getMinutes()) {
                         validMin = false;
                     } else if (props.minDate.getMinutes() === value.getMinutes()) {
-                        if (props.minDate.getSeconds() > value.getSeconds()) {
-                            validMin = false;
-                        } else if (props.minDate.getSeconds() === value.getSeconds()) {
-                            if (props.minDate.getMilliseconds() > value.getMilliseconds()) {
+                        if (props.showSeconds) {
+                            if (props.minDate.getSeconds() > value.getSeconds()) {
                                 validMin = false;
+                            } else if (props.minDate.getSeconds() === value.getSeconds()) {
+                                if (!props.showMillisec || props.minDate.getMilliseconds() > value.getMilliseconds()) {
+                                    validMin = false;
+                                }
                             }
                         }
                     }
@@ -2381,11 +2392,13 @@ export const Calendar = React.memo(
                     if (props.maxDate.getMinutes() < value.getMinutes()) {
                         validMax = false;
                     } else if (props.maxDate.getMinutes() === value.getMinutes()) {
-                        if (props.maxDate.getSeconds() < value.getSeconds()) {
-                            validMax = false;
-                        } else if (props.maxDate.getSeconds() === value.getSeconds()) {
-                            if (props.maxDate.getMilliseconds() < value.getMilliseconds()) {
+                        if (props.showSeconds) {
+                            if (props.maxDate.getSeconds() < value.getSeconds()) {
                                 validMax = false;
+                            } else if (props.maxDate.getSeconds() === value.getSeconds()) {
+                                if (!props.showMillisec || props.maxDate.getMilliseconds() < value.getMilliseconds()) {
+                                    validMax = false;
+                                }
                             }
                         }
                     }
@@ -2603,6 +2616,8 @@ export const Calendar = React.memo(
 
             inputRef.current.value = formattedValue;
         };
+
+        updateInputfieldRef.current = updateInputfield;
 
         const formatDateTime = (date) => {
             if (props.formatDateTime) {
@@ -3078,6 +3093,12 @@ export const Calendar = React.memo(
         React.useEffect(() => {
             ObjectUtils.combinedRefs(inputRef, props.inputRef);
         }, [inputRef, props.inputRef]);
+
+        React.useEffect(() => {
+            if (props.value !== previousValue) {
+                updateInputfieldRef.current && updateInputfieldRef.current(props.value);
+            }
+        }, [props.value, previousValue]);
 
         useMountEffect(() => {
             let viewDate = getViewDate(props.viewDate);
@@ -4248,6 +4269,7 @@ export const Calendar = React.memo(
                         autoComplete="off"
                         placeholder={props.placeholder}
                         tabIndex={props.tabIndex}
+                        onClick={onInputClick}
                         onInput={onUserInput}
                         onFocus={onInputFocus}
                         onBlur={onInputBlur}

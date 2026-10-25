@@ -54,12 +54,7 @@ const animationFeaturesData1 = [
     {
         id: 2,
         title: 'PrimeBlocks',
-        description: (
-            <>
-                Fully compatible with <a href="https://blocks.primereact.org/">PrimeBlocks</a>, choose from the wide range of blocks and customize the way you like. Note that <a href="https://blocks.primereact.org/">PrimeBlocks</a> is not included in
-                the template and requires a separate purchase.
-            </>
-        ),
+        description: <>Designed to be fully compatible with upcoming next-gen PrimeBlocks, choose from the extensive range of blocks and customize the way you like.</>,
         src: 'https://primefaces.org/cdn/primereact/images/templates/apollo/features-animation-blocks.png'
     },
     {
@@ -197,12 +192,13 @@ const VeronaPage = () => {
         <div className="verona template">
             <TemplateHero
                 pattern={'https://primefaces.org/cdn/primereact/images/templates/verona/verona-hero-pattern.png'}
-                description={'Prepare to be amazed by the remastered Verona for PrimeReact featuring a new gorgeous dark mode for the entire layout, 2 menu modes, reusable css widgets, utilities, modern icons and many more.'}
+                description={'Prepare to be amazed by the remastered Verona for PrimeReact featuring a new gorgeous dark mode for the entire layout, 4 menu modes, reusable css widgets, utilities, modern icons and many more.'}
                 logo={<VeronaLogo />}
                 dashboard1={'https://primefaces.org/cdn/primereact/images/templates/verona/verona-hero-dashboard1.png'}
                 dashboard2={'https://primefaces.org/cdn/primereact/images/templates/verona/verona-hero-dashboard2.png'}
                 liveHref={'https://verona.primereact.org/'}
                 docHref={'https://verona.primereact.org/documentation'}
+                storeHref={'https://primeui.store/templates/react/verona'}
             />
             <VeronaSeperator />
             <TemplateLicense license={license} />

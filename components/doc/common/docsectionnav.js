@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import AppContentContext from '@/components/layout/appcontentcontext';
 import { useContext } from 'react';
+import { Button } from '@/components/lib/button/Button';
 
 export function DocSectionNav({ docs = [] }) {
     const { darkMode } = useContext(AppContentContext);
@@ -104,37 +105,47 @@ export function DocSectionNav({ docs = [] }) {
             <ul ref={navRef} className="doc-section-nav">
                 {docs.map((item) => createItem(item))}
             </ul>
-            <div
-                className="mt-8 p-3 w-full"
+
+            {/* <div
                 style={{
-                    border: '1px solid var(--surface-border)',
-                    backgroundColor: 'var(--surface-0)',
+                    marginTop: '2rem',
+                    border: '1px solid light-dark(var(--surface-200),var(--surface-800))',
+                    padding: '1rem',
+                    background: 'light-dark(var(--surface-0),var(--surface-900))',
+                    width: '100%',
                     borderRadius: '0.5rem'
                 }}
             >
                 <img
-                    src="https://primefaces.org/cdn/discount/primestore-summersale-2025-sm.jpg"
-                    className="w-full rounded-lg"
-                    alt="Summer Sale 2025"
                     style={{
+                        width: '100%',
                         borderRadius: '0.5rem'
                     }}
+                    src="https://fqjltiegiezfetthbags.supabase.co/storage/v1/object/public/store.images/discount/dec25/showcase/primestore-endofyear-2025-sm.jpg"
+                    alt="November Sale 2025"
                 />
-                <div className="text-xl font-semibold flex flex-column gap-2 text-center mt-4">
-                    <span style={{ lineHeight: 1 }}>SUMMER SALE</span>
-                    <span className="text-primary" style={{ lineHeight: 1 }}>
-                        2025
-                    </span>
+                <div
+                    style={{
+                        textAlign: 'center',
+                        fontSize: '0.875rem',
+                        marginTop: '1rem',
+                        lineHeight: '1.25rem'
+                    }}
+                >
+                    Apply coupon code <b>ENDOFYEAR25</b> at checkout to enjoy 25% off your order.
                 </div>
-                <div className="text-center text-sm mt-4" style={{ color: 'var(--surface-500)', lineHeight: 1.5 }}>
-                    Use coupon code <b>PRSM25</b> at checkout to get 50% OFF everything in PrimeStore and PrimeBlocks.
-                </div>
-                <span className="flex justify-content-center">
-                    <a className="p-button p-button-rounded p-button-sm font-bold mt-3 inline-flex" size="small" href="https://www.primefaces.org/blog/summer-sale-2025" target="_blank" rel="noopener">
-                        Learn More
+                <span
+                    style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        marginTop: '1rem'
+                    }}
+                >
+                    <a href="https://primeui.store" target="_blank" rel="noopener" className="p-button p-component p-button-rounded p-button-sm">
+                        <span className="p-button-label p-c">Buy Now</span>
                     </a>
                 </span>
-            </div>
+            </div> */}
         </div>
     );
 }

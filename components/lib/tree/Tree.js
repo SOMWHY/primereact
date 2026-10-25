@@ -21,6 +21,7 @@ export const Tree = React.memo(
         const filteredNodes = React.useRef([]);
         const dragState = React.useRef(null);
         const filterChanged = React.useRef(false);
+        const [, forceRender] = React.useState(false);
 
         const filteredValue = props.onFilterValueChange ? props.filterValue : filterValueState;
         const isFiltering = props.filter && filteredValue;
@@ -342,15 +343,16 @@ export const Tree = React.memo(
                         filteredNodes.current.push(copyNode);
                     }
                 }
+
+                onToggle({
+                    originalEvent: null,
+                    value: currentFilterExpandedKeys.current,
+                    navigateFocusToChild: false
+                });
             }
 
-            onToggle({
-                originalEvent: null,
-                value: currentFilterExpandedKeys.current,
-                navigateFocusToChild: false
-            });
-
             currentFilterExpandedKeys.current = {};
+            forceRender((x) => !x);
             filterChanged.current = false;
         };
 

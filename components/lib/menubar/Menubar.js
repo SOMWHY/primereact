@@ -281,7 +281,7 @@ export const Menubar = React.memo(
 
         const onArrowUpKey = (event) => {
             const processedItem = visibleItems[focusedItemInfo.index];
-            const root = ObjectUtils.isEmpty(processedItem.parent);
+            const root = processedItem ? ObjectUtils.isEmpty(processedItem.parent) : null;
 
             if (root) {
                 const grouped = isProccessedItemGroup(processedItem);
@@ -559,7 +559,7 @@ export const Menubar = React.memo(
 
         useUpdateEffect(() => {
             if (focusTrigger) {
-                const itemIndex = focusedItemInfo.index !== -1 ? findNextItemIndex(focusedItemInfo.index) : reverseTrigger.current ? findLastItemIndex() : findFirstFocusedItemIndex();
+                const itemIndex = focusedItemInfo.index !== -1 ? findNextItemIndex(focusedItemInfo.index) : reverseTrigger.current ? findLastItemIndex() : findFirstItemIndex();
 
                 changeFocusedItemIndex(itemIndex);
                 reverseTrigger.current = false;

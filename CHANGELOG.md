@@ -1,5 +1,115 @@
 # Changelog
 
+## [10.9.9](https://github.com/primefaces/primereact/tree/10.9.9) (2026-08-27)
+
+[Full Changelog](https://github.com/primefaces/primereact/compare/10.9.8...10.9.9)
+
+**Security:**
+
+- ObjectUtils: Prototype pollution in `mutateFieldData` ([CVE-2026-15538](https://nvd.nist.gov/vuln/detail/CVE-2026-15538), [GHSA-vg36-rrrg-4wqv](https://github.com/advisories/GHSA-vg36-rrrg-4wqv)) [#8553](https://github.com/primefaces/primereact/issues/8553)
+
+Field paths containing `__proto__`, `constructor` or `prototype` are now rejected at every level of the path. Reported by [@Dremig](https://github.com/Dremig).
+
+## [10.9.8](https://github.com/primefaces/primereact/tree/10.9.8) (2026-05-14)
+
+[Full Changelog](https://github.com/primefaces/primereact/compare/10.9.7...10.9.8)
+
+**Enhancements:**
+
+- Enhancement: Prevent redundant state setter calls in Tooltip component [#8524](https://github.com/primefaces/primereact/issues/8524)
+- Calendar: show date-section on click [#8352](https://github.com/primefaces/primereact/issues/8352)
+
+**Fixed Bugs:**
+
+- ConfirmDialog: closing animation is replaced by secondary dialog animation [#8533](https://github.com/primefaces/primereact/issues/8533)
+- InputNumber: incorrect decimal point handling [#8511](https://github.com/primefaces/primereact/issues/8511)
+- OrderList: Wrong order after moving multiple-selected items to top or bottom under specific conditions [#8496](https://github.com/primefaces/primereact/issues/8496)
+- OrderList: Cannot reorder multi-selected items under specific condition [#8495](https://github.com/primefaces/primereact/issues/8495)
+- DataTable: locale string not applied [#8478](https://github.com/primefaces/primereact/issues/8478)
+- DataTable: cellMemo causes stale closures in event handlers [#8450](https://github.com/primefaces/primereact/issues/8450)
+- Splitter: Incorrect detection of nested SplitterPanel [#8449](https://github.com/primefaces/primereact/issues/8449)
+- Tree: Bad initialization of expanded keys when filter option is present [#8408](https://github.com/primefaces/primereact/issues/8408)
+- TieredMenu: Separator visibility ignored [#8383](https://github.com/primefaces/primereact/issues/8383)
+- InputNumber: step rounding to one decimal place [#8382](https://github.com/primefaces/primereact/issues/8382)
+- Tree: Node updates not immediately rendered when using filter + onToggle (v10.9.7 regression) [#8381](https://github.com/primefaces/primereact/issues/8381)
+- Calendar: When the calendar is open, and the screen is scrolled, the calendar does not close. JS error [#8357](https://github.com/primefaces/primereact/issues/8357)
+- SpeedDial: Linear invisible div overlay even when menu closed [#8353](https://github.com/primefaces/primereact/issues/8353)
+- InputNumber: Respect Global Locale [#8349](https://github.com/primefaces/primereact/issues/8349)
+- CascadeSelect: Cascade Submenu is not focusable with right and left arrow navigations [#8345](https://github.com/primefaces/primereact/issues/8345)
+- PanelMenu: Up and down arrow key navigation not working with dropdown items in PanelMenu [#8343](https://github.com/primefaces/primereact/issues/8343)
+- MenuBar: Up and down arrow key navigation not working with dropdown items in MenuBar [#8341](https://github.com/primefaces/primereact/issues/8341)
+- TieredMenu: Submenu 'popup' behavior different than PrimeVue [#5975](https://github.com/primefaces/primereact/issues/5975)
+- Menubar: missing properties in MenubarContext [#8334](https://github.com/primefaces/primereact/pull/8334)
+- Menubar: type for MenubarContext is missing properties present in documentation [#8330](https://github.com/primefaces/primereact/issues/8330)
+- DataTable: Column frozen is broken when DataTable is using headerColumnGroup (ColumnGroup) [#8320](https://github.com/primefaces/primereact/issues/8320)
+- Editor: showHeader default value is wrong [#8318](https://github.com/primefaces/primereact/issues/8318)
+- InputOtp: Unable to edit single field input [#8306](https://github.com/primefaces/primereact/issues/8306)
+- Calendar: Manual entry not possible if the entered date is the same as min date [#8304](https://github.com/primefaces/primereact/issues/8304)
+- Calendar: reFocusInputField on single selection [#8302](https://github.com/primefaces/primereact/issues/8302)
+- MultiStateCheckbox: A form field element has neither an id nor a name attribute [#8293](https://github.com/primefaces/primereact/issues/8293)
+- DataTable: loading prop true hides empty message [#8292](https://github.com/primefaces/primereact/issues/8292)
+- InputNumber: Setting value doesn't trigger onChange [#8274](https://github.com/primefaces/primereact/issues/8274)
+- PickList: Shift+Space range selection causes runtime error [#8272](https://github.com/primefaces/primereact/issues/8272)
+- TabView: scrollable + activeIndex should scroll to header item [#8259](https://github.com/primefaces/primereact/issues/8259)
+- DataTable MultiSelect: Accessibility - The 'aria-controls' or 'aria-owns' attribute of the expanded combobox must reference a valid popup 'id' value [#8239](https://github.com/primefaces/primereact/issues/8239)
+- DataTable Checkbox: Accessibility - ARIA attributes should be valid for the element and ARIA role to which they are assigned [#8227](https://github.com/primefaces/primereact/issues/8227)
+- InputNumber: Integeronly accepts floating point number onPaste [#8221](https://github.com/primefaces/primereact/issues/8221)
+- OverlayPanel: Clicking outside OverlayPanel doesn't close the panel with cssTransition: false [#8183](https://github.com/primefaces/primereact/issues/8183)
+- Input elements rendered by PrimeReact lack autocomplete attributes (e.g., "username", "tel") [#8151](https://github.com/primefaces/primereact/issues/8151)
+- Dropdown: Wrong behavior of `home`, `end`, `left arrow` and `right arrow` while `editable` [#8072](https://github.com/primefaces/primereact/issues/8072)
+- Calendar: With "mask", not work callback "onInput" [#7640](https://github.com/primefaces/primereact/issues/7640)
+- Calendar: Input Mask Requires Second Click to Activate on Input Fields [#7609](https://github.com/primefaces/primereact/issues/7609)
+- Menu: Visual glitches in hovering effect [#7506](https://github.com/primefaces/primereact/issues/7506)
+- OrganizationChart: if it has a large children number the lines are not connected properly [#7488](https://github.com/primefaces/primereact/issues/7488)
+- Calendar: incorrect value is displayed [#7428](https://github.com/primefaces/primereact/issues/7428)
+
+**Documentation:**
+
+- Datatable: Missing code in custom filter example [#8482](https://github.com/primefaces/primereact/issues/8482)
+- DataView: Types are not matched in TS template [#8528](https://github.com/primefaces/primereact/issues/8528)
+- Docs: hide API tab when apiDocs are not available [#8462](https://github.com/primefaces/primereact/pull/8462)
+- DataTable demo: noticeable lag and whole-table re-renders when increasing rows (demo reproduction) [#8460](https://github.com/primefaces/primereact/issues/8460)
+- DataTable: PDF Export doesn't work on documentation [#8366](https://github.com/primefaces/primereact/issues/8366)
+
+## [10.9.7](https://github.com/primefaces/primereact/tree/10.9.7) (2025-08-15)
+
+[Full Changelog](https://github.com/primefaces/primereact/compare/10.9.6...10.9.7)
+
+**Enhancements:**
+
+- Add in Multiselect filterInputKeyDown to filterTemplate options for consistency with Dropdown [#8199](https://github.com/primefaces/primereact/pull/8199)
+
+**Fixed Bugs:**
+
+- Dropdown: show emptyMessage when Dropdown with VirtualScroller has no data [#8125](https://github.com/primefaces/primereact/pull/8125)
+- fix(menubar): clicking submenu header inside dropdown [#8175](https://github.com/primefaces/primereact/pull/8175)
+- Datatable: onRowSelect and onRowUnselect callbacks inconsistent when clicking checkbox in DataTable (v10.9.5) [#8096](https://github.com/primefaces/primereact/issues/8096)
+- Missing Icons in API [#8095](https://github.com/primefaces/primereact/issues/8095)
+- SplitButton: Null id and custom menu items id [#8075](https://github.com/primefaces/primereact/issues/8075)
+- Data Table: Custom Fields documentation example is wrong [#8121](https://github.com/primefaces/primereact/issues/8121)
+- Datatable ignores Column sortFunction on initial sort [#7405](https://github.com/primefaces/primereact/issues/7405)
+- ToggleButton - Accessibility bug [#8021](https://github.com/primefaces/primereact/issues/8021)
+- Dialog: When out of the viewport, dialog cannot be esaily dragged back [#8090](https://github.com/primefaces/primereact/issues/8090)
+- MultiStateCheckbox: missing invalid and variant props in TypeScript interface [#8085](https://github.com/primefaces/primereact/issues/8085)
+- DataTable: Wrong TypeScript definition for cell selection [#8115](https://github.com/primefaces/primereact/issues/8115)
+- DataTable: Cell Editing and Dropdown Filter Interaction [#7158](https://github.com/primefaces/primereact/issues/7158)
+- Dropdown: Item list immediately closes after opening [#8080](https://github.com/primefaces/primereact/issues/8080)
+- Clear filter button not working when filters prop is not provided [#8138](https://github.com/primefaces/primereact/issues/8138)
+- InputNumber: wrong internal value for decimal numbers using the spin [#8132](https://github.com/primefaces/primereact/issues/8132)
+- DataTable changes data in another row when you changes something in a row [#8079](https://github.com/primefaces/primereact/issues/8079)
+- DataTable: Memo props leak to DOM - React does not recognize the ... prop on DOM element. [#8120](https://github.com/primefaces/primereact/issues/8120)
+- Button: When using a Button inside of a OrderList itemTemplate component, only outside of icon is clickable [#8145](https://github.com/primefaces/primereact/issues/8145)
+- Carousel: Broken when running without React.StrictMode [#3985](https://github.com/primefaces/primereact/issues/3985)
+- TreeSelect Filter Mode not Lenient [#8005](https://github.com/primefaces/primereact/issues/8005)
+- TreeSelect: Wrong position openning upward and using filter [#8089](https://github.com/primefaces/primereact/issues/8089)
+- DatePicker setting seconds when showTime is true and showSeconds is false [#8140](https://github.com/primefaces/primereact/issues/8140)
+- DataTable: Multiple frozen columns - Headers freeze but data columns don't align properly [#8107](https://github.com/primefaces/primereact/issues/8107)
+- TreeSelect: Collapse/Expand not working if filter is applied [#8197](https://github.com/primefaces/primereact/issues/8197)
+- Calendar: incorrect value via arrorws and month picker when use callback onMonthChange [#8201](https://github.com/primefaces/primereact/issues/8201)
+- DataTable: dissapearing values when clicking quickly [#8099](https://github.com/primefaces/primereact/issues/8099)
+- MultiSelect: missing filterInputKeyDown handler in filterTemplate options (unlike Dropdown) [#8152](https://github.com/primefaces/primereact/issues/8145)
+- Column Filter Accessibility issue in DataTable [#8219](https://github.com/primefaces/primereact/issues/8219)
+
 ## [10.9.6](https://github.com/primefaces/primereact/tree/10.9.6) (2025-06-02)
 
 [Full Changelog](https://github.com/primefaces/primereact/compare/10.9.5...10.9.6)
